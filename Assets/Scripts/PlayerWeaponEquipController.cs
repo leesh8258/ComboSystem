@@ -1,0 +1,74 @@
+using System;
+using UnityEngine;
+
+public class GameWeaponEquipController : MonoBehaviour
+{
+    [Header("Equip Socket")]
+    [SerializeField] private Transform equipSocket;
+
+    [Header("Runtime")]
+    [SerializeField] private GameWeaponSO currentWeapon;
+    [SerializeField] private GameObject currentWeaponInstance;
+
+    public event Action<GameWeaponSO> OnWeaponEquipped;
+
+    public GameWeaponSO CurrentWeapon => currentWeapon;
+    public GameObject CurrentWeaponInstance => currentWeaponInstance;
+    public bool HasWeapon => currentWeapon != null;
+
+    public void EquipWeapon(GameWeaponSO weapon)
+    {
+        if (!CanEquipWeapon(weapon)) return;
+        ClearCurrentWeapon();
+
+        GameObject spawnedInstance = SpawnWeaponInstance(weapon);
+        if (spawnedInstance == null) return;
+
+        currentWeapon = weapon;
+        currentWeaponInstance = spawnedInstance;
+
+        ApplyWeaponTransform(weapon, spawnedInstance);
+
+        OnWeaponEquipped?.Invoke(currentWeapon);
+    }
+
+    public void UnequipWeapon()
+    {
+        ClearCurrentWeapon();
+    }
+
+    private bool CanEquipWeapon(GameWeaponSO weapon)
+    {
+        if (weapon == null || equipSocket == null || weapon.WeaponPrefab == null) 
+        {
+            Debug.Log("장비 착용 불가능");
+            return false;
+        }
+
+        return true;
+    }
+
+    private GameObject SpawnWeaponInstance(GameWeaponSO weapon)
+    {
+        return Instantiate(weapon.WeaponPrefab, equipSocket);
+    }
+
+    private void ApplyWeaponTransform(GameWeaponSO weapon, GameObject instance)
+    {
+        Transform instanceTransform = instance.transform;
+        instanceTransform.localPosition = weapon.EquipOffsetPosition;
+        instanceTransform.localRotation = Quaternion.Euler(weapon.EquipOffsetRotation);
+        instanceTransform.localScale = Vector3.one;
+    }
+
+    private void ClearCurrentWeapon()
+    {
+        if (currentWeaponInstance != null)
+        {
+            Destroy(currentWeaponInstance);
+            currentWeaponInstance = null;
+        }
+
+        currentWeapon = null;
+    }
+}
