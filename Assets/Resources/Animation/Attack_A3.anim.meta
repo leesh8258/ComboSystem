@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1b267cb3f5052f0498d92ccf9ed7546a
+guid: 22da0a64774213d4b882630e6a68395f
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 7400000
@@ -11,5 +11,5 @@ AssetOrigin:
   productId: 288783
   packageName: RPG_Animations_Pack_FREE
   packageVersion: 1.6
-  assetPath: Assets/DoubleL/Demo/Anim/OneHand_Up_Idle.anim
+  assetPath: Assets/Resources/Animation/OneHand_Up_Attack_3.anim
   uploadId: 811092

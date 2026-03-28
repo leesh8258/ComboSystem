@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 22da0a64774213d4b882630e6a68395f
+guid: 9cdaca9439dd34e4fa9af77e83ae4a59
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 7400000
@@ -11,5 +11,5 @@ AssetOrigin:
   productId: 288783
   packageName: RPG_Animations_Pack_FREE
   packageVersion: 1.6
-  assetPath: Assets/DoubleL/Demo/Anim/OneHand_Up_Attack_3.anim
+  assetPath: Assets/DoubleL/Demo/Anim/OneHand_Up_Walk_B_InPlace.anim
   uploadId: 811092
