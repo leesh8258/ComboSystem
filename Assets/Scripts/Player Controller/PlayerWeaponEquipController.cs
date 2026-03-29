@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class GameWeaponEquipController : MonoBehaviour
+public class PlayerWeaponEquipController : MonoBehaviour
 {
     [Header("Equip Socket")]
     [SerializeField] private Transform equipSocket;
@@ -11,6 +11,7 @@ public class GameWeaponEquipController : MonoBehaviour
     [SerializeField] private GameObject currentWeaponInstance;
 
     public event Action<GameWeaponSO> OnWeaponEquipped;
+    public event Action OnWeaponCleared;
 
     public GameWeaponSO CurrentWeapon => currentWeapon;
     public GameObject CurrentWeaponInstance => currentWeaponInstance;
@@ -18,11 +19,18 @@ public class GameWeaponEquipController : MonoBehaviour
 
     public void EquipWeapon(GameWeaponSO weapon)
     {
-        if (!CanEquipWeapon(weapon)) return;
+        if (!CanEquipWeapon(weapon))
+        {
+            return;
+        }
+
         ClearCurrentWeapon();
 
         GameObject spawnedInstance = SpawnWeaponInstance(weapon);
-        if (spawnedInstance == null) return;
+        if (spawnedInstance == null)
+        {
+            return;
+        }
 
         currentWeapon = weapon;
         currentWeaponInstance = spawnedInstance;
@@ -39,9 +47,18 @@ public class GameWeaponEquipController : MonoBehaviour
 
     private bool CanEquipWeapon(GameWeaponSO weapon)
     {
-        if (weapon == null || equipSocket == null || weapon.WeaponPrefab == null) 
+        if (weapon == null)
         {
-            Debug.Log("장비 착용 불가능");
+            return false;
+        }
+
+        if (equipSocket == null)
+        {
+            return false;
+        }
+
+        if (weapon.WeaponPrefab == null)
+        {
             return false;
         }
 
@@ -58,11 +75,12 @@ public class GameWeaponEquipController : MonoBehaviour
         Transform instanceTransform = instance.transform;
         instanceTransform.localPosition = weapon.EquipOffsetPosition;
         instanceTransform.localRotation = Quaternion.Euler(weapon.EquipOffsetRotation);
-        instanceTransform.localScale = Vector3.one;
     }
 
     private void ClearCurrentWeapon()
     {
+        bool hadWeapon = currentWeapon != null || currentWeaponInstance != null;
+
         if (currentWeaponInstance != null)
         {
             Destroy(currentWeaponInstance);
@@ -70,5 +88,10 @@ public class GameWeaponEquipController : MonoBehaviour
         }
 
         currentWeapon = null;
+
+        if (hadWeapon)
+        {
+            OnWeaponCleared?.Invoke();
+        }
     }
 }

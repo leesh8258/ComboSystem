@@ -12,8 +12,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d9a0894f9346f46a64a5af5e6f1766, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: Assembly-CSharp::GameWeaponSO
-  weaponPrefab: {fileID: 0}
+  weaponPrefab: {fileID: 3188897173614111652, guid: 34fadf504b995004c968b439b132c946, type: 3}
   equipOffsetPosition: {x: 0, y: 0, z: 0}
   equipOffsetRotation: {x: 0, y: 0, z: 0}
   comboData:
-    steps: []
+    entryTransitions:
+    - inputType: 1
+      nextStepId: L1
+    - inputType: 2
+      nextStepId: R1
+    steps:
+    - stepId: L1
+      animationClip: {fileID: 7400000, guid: ec2099464d45eca478eb38664181ffec, type: 2}
+      bufferOpenNormalizedTime: 0.1
+      bufferCloseNormalizedTime: 0.5
+      transitions:
+      - inputType: 1
+        nextStepId: L2
+    - stepId: L2
+      animationClip: {fileID: 7400000, guid: 177ac19c6a96edc41bdd24e0652518e7, type: 2}
+      bufferOpenNormalizedTime: 0.1
+      bufferCloseNormalizedTime: 0.5
+      transitions:
+      - inputType: 1
+        nextStepId: L3
+    - stepId: L3
+      animationClip: {fileID: 7400000, guid: 22da0a64774213d4b882630e6a68395f, type: 2}
+      bufferOpenNormalizedTime: 0.1
+      bufferCloseNormalizedTime: 0.5
+      transitions: []
+    - stepId: R1
+      animationClip: {fileID: 7400000, guid: 932a23924401be2408bc67bd87b3857f, type: 2}
+      bufferOpenNormalizedTime: 0.2
+      bufferCloseNormalizedTime: 0.7
+      transitions:
+      - inputType: 2
+        nextStepId: R2
+    - stepId: R2
+      animationClip: {fileID: 7400000, guid: 2a7f074d14e382e4fac7f7099a515530, type: 2}
+      bufferOpenNormalizedTime: 0.2
+      bufferCloseNormalizedTime: 0.7
+      transitions:
+      - inputType: 2
+        nextStepId: R3
+    - stepId: R3
+      animationClip: {fileID: 7400000, guid: fdcf8527257ad71438c3631580687f15, type: 2}
+      bufferOpenNormalizedTime: 0.2
+      bufferCloseNormalizedTime: 0.7
+      transitions: []
