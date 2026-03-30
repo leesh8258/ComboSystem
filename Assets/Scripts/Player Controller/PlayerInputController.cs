@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,12 +13,18 @@ public class PlayerInputController : MonoBehaviour
     [SerializeField] private InputActionReference attackLeftAction;
     [SerializeField] private InputActionReference attackRightAction;
 
+    [Header("Weapon Slot Input Actions")]
+    [SerializeField] private List<InputActionReference> weaponSlotActions;
+
+    private readonly Dictionary<InputAction, int> weaponSlotActionMap = new Dictionary<InputAction, int>();
+
     private bool isForwardPressed;
     private bool isBackwardPressed;
 
     public float MoveDirection { get; private set; }
 
     public event Action<GameAttackInputType> OnAttackInput;
+    public event Action<int> OnWeaponSlotPressed;
 
     private void OnEnable()
     {
@@ -25,6 +32,7 @@ public class PlayerInputController : MonoBehaviour
         BindMoveBackwardAction();
         BindAttackLeftAction();
         BindAttackRightAction();
+        BindWeaponSlotActions();
 
         RefreshMoveDirection();
     }
@@ -35,6 +43,7 @@ public class PlayerInputController : MonoBehaviour
         UnbindMoveBackwardAction();
         UnbindAttackLeftAction();
         UnbindAttackRightAction();
+        UnbindWeaponSlotActions();
 
         isForwardPressed = false;
         isBackwardPressed = false;
@@ -59,11 +68,8 @@ public class PlayerInputController : MonoBehaviour
     #region Bind and Unbind Methods
     private void BindMoveForwardAction()
     {
-        if (moveForwardAction == null || moveForwardAction.action == null)
-        {
-            return;
-        }
-
+        if (moveForwardAction == null || moveForwardAction.action == null) return;
+ 
         moveForwardAction.action.Enable();
         moveForwardAction.action.performed += OnForwardPerformed;
         moveForwardAction.action.canceled += OnForwardCanceled;
@@ -71,10 +77,7 @@ public class PlayerInputController : MonoBehaviour
 
     private void BindMoveBackwardAction()
     {
-        if (moveBackwardAction == null || moveBackwardAction.action == null)
-        {
-            return;
-        }
+        if (moveBackwardAction == null || moveBackwardAction.action == null) return;
 
         moveBackwardAction.action.Enable();
         moveBackwardAction.action.performed += OnBackwardPerformed;
@@ -83,10 +86,7 @@ public class PlayerInputController : MonoBehaviour
 
     private void BindAttackLeftAction()
     {
-        if (attackLeftAction == null || attackLeftAction.action == null)
-        {
-            return;
-        }
+        if (attackLeftAction == null || attackLeftAction.action == null) return;
 
         attackLeftAction.action.Enable();
         attackLeftAction.action.performed += OnAttackLeftPerformed;
@@ -94,21 +94,35 @@ public class PlayerInputController : MonoBehaviour
 
     private void BindAttackRightAction()
     {
-        if (attackRightAction == null || attackRightAction.action == null)
-        {
-            return;
-        }
+        if (attackRightAction == null || attackRightAction.action == null) return;
 
         attackRightAction.action.Enable();
         attackRightAction.action.performed += OnAttackRightPerformed;
     }
 
+    private void BindWeaponSlotActions()
+    {
+        weaponSlotActionMap.Clear();
+
+        for (int i = 0; i < weaponSlotActions.Count; i++)
+        {
+            if (weaponSlotActions[i] == null || weaponSlotActions[i].action == null) continue;
+
+            InputAction action = weaponSlotActions[i].action;
+
+            if (!weaponSlotActionMap.ContainsKey(action))
+            {
+                weaponSlotActionMap.Add(action, i);
+            }
+
+            action.Enable();
+            action.performed += OnWeaponSlotPerformed;
+        }
+    }
+
     private void UnbindMoveForwardAction()
     {
-        if (moveForwardAction == null || moveForwardAction.action == null)
-        {
-            return;
-        }
+        if (moveForwardAction == null || moveForwardAction.action == null) return;
 
         moveForwardAction.action.performed -= OnForwardPerformed;
         moveForwardAction.action.canceled -= OnForwardCanceled;
@@ -117,10 +131,7 @@ public class PlayerInputController : MonoBehaviour
 
     private void UnbindMoveBackwardAction()
     {
-        if (moveBackwardAction == null || moveBackwardAction.action == null)
-        {
-            return;
-        }
+        if (moveBackwardAction == null || moveBackwardAction.action == null) return;
 
         moveBackwardAction.action.performed -= OnBackwardPerformed;
         moveBackwardAction.action.canceled -= OnBackwardCanceled;
@@ -129,10 +140,7 @@ public class PlayerInputController : MonoBehaviour
 
     private void UnbindAttackLeftAction()
     {
-        if (attackLeftAction == null || attackLeftAction.action == null)
-        {
-            return;
-        }
+        if (attackLeftAction == null || attackLeftAction.action == null) return;
 
         attackLeftAction.action.performed -= OnAttackLeftPerformed;
         attackLeftAction.action.Disable();
@@ -140,13 +148,24 @@ public class PlayerInputController : MonoBehaviour
 
     private void UnbindAttackRightAction()
     {
-        if (attackRightAction == null || attackRightAction.action == null)
-        {
-            return;
-        }
+        if (attackRightAction == null || attackRightAction.action == null) return;
 
         attackRightAction.action.performed -= OnAttackRightPerformed;
         attackRightAction.action.Disable();
+    }
+
+    private void UnbindWeaponSlotActions()
+    {
+        for (int i = 0; i < weaponSlotActions.Count; i++)
+        {
+            if (weaponSlotActions[i] == null || weaponSlotActions[i].action == null) continue;
+
+            InputAction inputAction = weaponSlotActions[i].action;
+            inputAction.performed -= OnWeaponSlotPerformed;
+            inputAction.Disable();
+        }
+
+        weaponSlotActionMap.Clear();
     }
 
     #endregion
@@ -188,6 +207,16 @@ public class PlayerInputController : MonoBehaviour
         if (!context.ReadValueAsButton()) return;
 
         OnAttackInput?.Invoke(GameAttackInputType.RightClick);
+    }
+
+    private void OnWeaponSlotPerformed(InputAction.CallbackContext context)
+    {
+        if (!context.ReadValueAsButton()) return;
+
+        if (weaponSlotActionMap.TryGetValue(context.action, out int slotIndex))
+        {
+            OnWeaponSlotPressed?.Invoke(slotIndex);
+        }
     }
 
     #endregion

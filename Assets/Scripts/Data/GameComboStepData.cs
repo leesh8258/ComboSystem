@@ -8,7 +8,7 @@ public class GameComboStepData
     [SerializeField] private AnimationClip animationClip;
     [SerializeField, Range(0f, 1f)] private float bufferOpenNormalizedTime = 0.3f;
     [SerializeField, Range(0f, 1f)] private float bufferCloseNormalizedTime = 0.8f;
-    [SerializeField] private GameComboTransitionData[] transitions = Array.Empty<GameComboTransitionData>();
+    [SerializeField] private GameComboTransitionData[] transitions;
 
     public string StepId => stepId;
     public AnimationClip AnimationClip => animationClip;
@@ -33,20 +33,10 @@ public class GameComboStepData
         for (int i = 0; i < transitions.Length; i++)
         {
             GameComboTransitionData transition = transitions[i];
-            if (transition == null)
-            {
-                continue;
-            }
 
-            if (transition.InputType != inputType)
-            {
-                continue;
-            }
-
-            if (string.IsNullOrEmpty(transition.NextStepId))
-            {
-                continue;
-            }
+            if (transition == null) continue;
+            if (transition.InputType != inputType) continue;
+            if (string.IsNullOrEmpty(transition.NextStepId)) continue;
 
             nextStepId = transition.NextStepId;
             return true;

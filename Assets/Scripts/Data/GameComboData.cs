@@ -4,8 +4,8 @@ using UnityEngine;
 [Serializable]
 public class GameComboData
 {
-    [SerializeField] private GameComboTransitionData[] entryTransitions = Array.Empty<GameComboTransitionData>();
-    [SerializeField] private GameComboStepData[] steps = Array.Empty<GameComboStepData>();
+    [SerializeField] private GameComboTransitionData[] entryTransitions;
+    [SerializeField] private GameComboStepData[] steps;
 
     public GameComboTransitionData[] EntryTransitions => entryTransitions;
     public GameComboStepData[] Steps => steps;
@@ -20,20 +20,9 @@ public class GameComboData
         for (int i = 0; i < entryTransitions.Length; i++)
         {
             GameComboTransitionData transition = entryTransitions[i];
-            if (transition == null)
-            {
-                continue;
-            }
 
-            if (transition.InputType != inputType)
-            {
-                continue;
-            }
-
-            if (string.IsNullOrEmpty(transition.NextStepId))
-            {
-                continue;
-            }
+            if (transition == null || transition.InputType != inputType) continue;
+            if (string.IsNullOrEmpty(transition.NextStepId)) continue;
 
             stepId = transition.NextStepId;
             return true;
@@ -59,15 +48,7 @@ public class GameComboData
         for (int i = 0; i < steps.Length; i++)
         {
             GameComboStepData step = steps[i];
-            if (step == null)
-            {
-                continue;
-            }
-
-            if (step.StepId != stepId)
-            {
-                continue;
-            }
+            if (step == null || step.StepId != stepId) continue;
 
             stepData = step;
             return true;

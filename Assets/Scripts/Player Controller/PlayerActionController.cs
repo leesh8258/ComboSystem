@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerActionController : MonoBehaviour
@@ -8,19 +9,16 @@ public class PlayerActionController : MonoBehaviour
     [SerializeField] private PlayerAnimationController animationController;
 
     [Header("Runtime")]
-    [SerializeField] private PlayerComboRuntimeState runtimeState = new PlayerComboRuntimeState();
-
-    public bool IsAttacking => runtimeState.IsAttacking;
-
-    #region Debug
-    [Header("Debug")]
-    [SerializeField] private bool enableDebugRuntimeState = true;
-    [SerializeField] private string debugCurrentStepId;
-    [SerializeField] private bool debugHasBufferedStep;
-    [SerializeField] private string debugBufferedNextStepId;
-    [SerializeField] private float debugCurrentAttackNormalizedTime;
     [SerializeField] private bool waitingForAttackStateEnter;
-    #endregion
+
+    [Header("Debug UI")]
+    [SerializeField] private TextMeshProUGUI currentWeaponNameText;
+    [SerializeField] private TextMeshProUGUI currentComboStep;
+    [SerializeField] private TextMeshProUGUI currentNextComboStep;
+    
+    private PlayerComboRuntimeState runtimeState = new PlayerComboRuntimeState();
+    
+    public bool IsAttacking => runtimeState.IsAttacking;
 
     private void Reset()
     {
@@ -228,12 +226,9 @@ public class PlayerActionController : MonoBehaviour
     #region Debug
     private void UpdateDebugRuntimeState()
     {
-        if (!enableDebugRuntimeState) return;
-
-        debugCurrentStepId = runtimeState.CurrentStepId;
-        debugHasBufferedStep = runtimeState.HasBufferedStep;
-        debugBufferedNextStepId = runtimeState.BufferedNextStepId;
-        debugCurrentAttackNormalizedTime = animationController != null ? animationController.GetAttackNormalizedTime() : 0f;
+        currentComboStep.text = $"Current Combo: {runtimeState.CurrentStepId}";
+        currentNextComboStep.text = $"Next Combo: {runtimeState.BufferedNextStepId}";
+        currentWeaponNameText.text = $"Weapon: {(weaponEquipController.HasWeapon ? weaponEquipController.CurrentWeapon.WeaponName : "None")}";
     }
     #endregion
 }

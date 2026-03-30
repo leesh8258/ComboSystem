@@ -1,14 +1,14 @@
 using System;
 using UnityEngine;
+using TMPro;
 
 public class PlayerWeaponEquipController : MonoBehaviour
 {
     [Header("Equip Socket")]
     [SerializeField] private Transform equipSocket;
 
-    [Header("Runtime")]
-    [SerializeField] private GameWeaponSO currentWeapon;
-    [SerializeField] private GameObject currentWeaponInstance;
+    private GameWeaponSO currentWeapon;
+    private GameObject currentWeaponInstance;
 
     public event Action<GameWeaponSO> OnWeaponEquipped;
     public event Action OnWeaponCleared;
@@ -19,18 +19,12 @@ public class PlayerWeaponEquipController : MonoBehaviour
 
     public void EquipWeapon(GameWeaponSO weapon)
     {
-        if (!CanEquipWeapon(weapon))
-        {
-            return;
-        }
+        if (!CanEquipWeapon(weapon)) return;
 
         ClearCurrentWeapon();
 
         GameObject spawnedInstance = SpawnWeaponInstance(weapon);
-        if (spawnedInstance == null)
-        {
-            return;
-        }
+        if (spawnedInstance == null) return;
 
         currentWeapon = weapon;
         currentWeaponInstance = spawnedInstance;

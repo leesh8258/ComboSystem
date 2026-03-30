@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d9a0894f9346f46a64a5af5e6f1766, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: Assembly-CSharp::GameWeaponSO
+  weaponName: Sword
   weaponPrefab: {fileID: 3188897173614111652, guid: 34fadf504b995004c968b439b132c946, type: 3}
   equipOffsetPosition: {x: 0, y: 0, z: 0}
   equipOffsetRotation: {x: 0, y: 0, z: 0}
@@ -27,7 +28,7 @@ MonoBehaviour:
       bufferOpenNormalizedTime: 0.1
       bufferCloseNormalizedTime: 0.5
       transitions:
-      - inputType: 1
+      - inputType: 2
         nextStepId: L2
     - stepId: L2
       animationClip: {fileID: 7400000, guid: 177ac19c6a96edc41bdd24e0652518e7, type: 2}

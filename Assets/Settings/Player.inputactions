@@ -41,6 +41,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "WeaponLoadOut_1",
+                    "type": "Button",
+                    "id": "4979d037-b47b-48f7-87fd-53670c9c1488",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "WeaponLoadOut_2",
+                    "type": "Button",
+                    "id": "44a84886-1a6d-4db9-9597-9844dc46e5b7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "WeaponLoadOut_3",
+                    "type": "Button",
+                    "id": "e9c92a20-ddbd-48de-8648-214aa013c276",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -85,6 +112,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "AttackRightAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "825ee2d4-03d1-4c42-b9c8-8275d0c6f508",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "WeaponLoadOut_1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2f940a1f-b1f2-4dfc-9e1c-2c63ef6307e8",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "WeaponLoadOut_2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4d2957d6-bcc8-4ef7-802e-956051968ac3",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "WeaponLoadOut_3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

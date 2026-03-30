@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class PlayerAnimationController : MonoBehaviour
 {
@@ -10,17 +11,12 @@ public class PlayerAnimationController : MonoBehaviour
     [SerializeField] private string attackStateName = "Attack";
     [SerializeField] private AnimationClip attackPlaceholderClip;
 
+    [Header("Debug UI")]
+    [SerializeField] private TextMeshProUGUI currentAttackClipNameText;
+
     private AnimatorOverrideController runtimeOverrideController;
     private int attackStateHash;
     private AnimationClip currentAttackClip;
-
-    #region Debug
-    [Header("Debug")]
-    [SerializeField] private bool enableDebugRuntimeState = true;
-    [SerializeField] private bool debugIsPlayingAttackState;
-    [SerializeField] private float debugAttackNormalizedTime;
-    [SerializeField] private string debugCurrentAttackClipName;
-    #endregion
 
     private void Reset()
     {
@@ -59,10 +55,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     public void PlayAttackClip(AnimationClip clip)
     {
-        if (!CanPlayAttackClip(clip))
-        {
-            return;
-        }
+        if (!CanPlayAttackClip(clip)) return;
 
         ApplyAttackClipOverride(clip);
         animator.Play(attackStateName, 0, 0f);
@@ -138,21 +131,10 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void CreateRuntimeOverrideController()
     {
-        if (animator == null)
-        {
-            return;
-        }
-
-        if (runtimeOverrideController != null)
-        {
-            return;
-        }
+        if (animator == null || runtimeOverrideController != null) return;
 
         RuntimeAnimatorController baseController = animator.runtimeAnimatorController;
-        if (baseController == null)
-        {
-            return;
-        }
+        if (baseController == null) return;
 
         runtimeOverrideController = new AnimatorOverrideController(baseController);
         animator.runtimeAnimatorController = runtimeOverrideController;
@@ -166,10 +148,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void ResetAttackOverrideToPlaceholder()
     {
-        if (runtimeOverrideController == null || attackPlaceholderClip == null)
-        {
-            return;
-        }
+        if (runtimeOverrideController == null || attackPlaceholderClip == null) return;
 
         runtimeOverrideController[attackPlaceholderClip] = attackPlaceholderClip;
         currentAttackClip = null;
@@ -178,14 +157,8 @@ public class PlayerAnimationController : MonoBehaviour
     #region Debug
     private void UpdateDebugRuntimeState()
     {
-        if (!enableDebugRuntimeState)
-        {
-            return;
-        }
-
-        debugIsPlayingAttackState = IsPlayingAttackState();
-        debugAttackNormalizedTime = GetAttackNormalizedTime();
-        debugCurrentAttackClipName = currentAttackClip != null ? currentAttackClip.name : string.Empty;
+        string currentClipName = currentAttackClip != null ? currentAttackClip.name : string.Empty;
+        currentAttackClipNameText.text = $"Current Animation clip: {currentClipName}";
     }
     #endregion
 }
