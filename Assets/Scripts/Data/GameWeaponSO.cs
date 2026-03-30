@@ -11,6 +11,9 @@ public class GameWeaponSO : ScriptableObject
     [SerializeField] private Vector3 equipOffsetPosition;
     [SerializeField] private Vector3 equipOffsetRotation;
 
+    [Header("Damage")]
+    [SerializeField] private float baseDamage = 10f;
+
     [Header("Combo")]
     [SerializeField] private GameComboData comboData;
 
@@ -18,5 +21,6 @@ public class GameWeaponSO : ScriptableObject
     public GameObject WeaponPrefab => weaponPrefab;
     public Vector3 EquipOffsetPosition => equipOffsetPosition;
     public Vector3 EquipOffsetRotation => equipOffsetRotation;
+    public float BaseDamage => baseDamage;
     public GameComboData ComboData => comboData;
 }

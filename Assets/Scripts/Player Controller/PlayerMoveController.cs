@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerMoveController : MonoBehaviour
 {
     private const string MOVE_PARAM = "Move";
@@ -8,37 +9,25 @@ public class PlayerMoveController : MonoBehaviour
     [SerializeField] private PlayerInputController inputController;
     [SerializeField] private PlayerActionController actionController;
     [SerializeField] private Animator animator;
+    [SerializeField] private CharacterController characterController;
     [SerializeField] private float moveSpeed = 3f;
-
-    private float fixedX;
-
-    private void Start()
-    {
-        fixedX = transform.position.x;
-    }
 
     private void Reset()
     {
         inputController = GetComponent<PlayerInputController>();
         actionController = GetComponent<PlayerActionController>();
         animator = GetComponentInChildren<Animator>();
+        characterController = GetComponent<CharacterController>();
     }
 
     private void Update()
     {
-        if (inputController == null) return;
+        if (inputController == null || characterController == null) return;
 
         float moveDirection = GetMoveDirection();
 
         UpdateMovement(moveDirection);
         UpdateAnimation(moveDirection);
-    }
-
-    private void LateUpdate()
-    {
-        Vector3 position = transform.position;
-        position.x = fixedX;
-        transform.position = position;
     }
 
     private float GetMoveDirection()
@@ -53,7 +42,7 @@ public class PlayerMoveController : MonoBehaviour
         if (Mathf.Approximately(moveDirection, 0f)) return;
 
         Vector3 moveVector = Vector3.forward * moveDirection;
-        transform.position += moveVector * moveSpeed * Time.deltaTime;
+        characterController.Move(moveVector * moveSpeed * Time.deltaTime);
     }
 
     private void UpdateAnimation(float moveDirection)
@@ -64,5 +53,19 @@ public class PlayerMoveController : MonoBehaviour
 
         animator.SetBool(MOVE_PARAM, isMoving);
         animator.SetFloat(MOVE_DIRECTION_PARAM, moveDirection);
+    }
+
+    private void OnAnimatorMove()
+    {
+        if (animator == null || characterController == null) return;
+        if (actionController == null || !actionController.IsAttacking) return;
+
+        Vector3 delta = animator.deltaPosition;
+        delta.x = 0f;
+        delta.y = 0f;
+
+        if (delta.sqrMagnitude <= 0f) return;
+
+        characterController.Move(delta);
     }
 }

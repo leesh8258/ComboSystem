@@ -1,9 +1,11 @@
 using System;
 using UnityEngine;
-using TMPro;
 
 public class PlayerWeaponEquipController : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] private PlayerDamageController damageController;
+
     [Header("Equip Socket")]
     [SerializeField] private Transform equipSocket;
 
@@ -16,6 +18,11 @@ public class PlayerWeaponEquipController : MonoBehaviour
     public GameWeaponSO CurrentWeapon => currentWeapon;
     public GameObject CurrentWeaponInstance => currentWeaponInstance;
     public bool HasWeapon => currentWeapon != null;
+
+    private void Reset()
+    {
+        damageController = GetComponent<PlayerDamageController>();
+    }
 
     public void EquipWeapon(GameWeaponSO weapon)
     {
@@ -30,6 +37,7 @@ public class PlayerWeaponEquipController : MonoBehaviour
         currentWeaponInstance = spawnedInstance;
 
         ApplyWeaponTransform(weapon, spawnedInstance);
+        BindWeaponHitbox(spawnedInstance);
 
         OnWeaponEquipped?.Invoke(currentWeapon);
     }
@@ -87,5 +95,15 @@ public class PlayerWeaponEquipController : MonoBehaviour
         {
             OnWeaponCleared?.Invoke();
         }
+    }
+
+    private void BindWeaponHitbox(GameObject instance)
+    {
+        if (instance == null || damageController == null) return;
+
+        WeaponHitbox hitbox = instance.GetComponent<WeaponHitbox>();
+        if (hitbox == null) return;
+
+        hitbox.Setup(damageController);
     }
 }

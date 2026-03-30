@@ -8,16 +8,14 @@ public class PlayerActionController : MonoBehaviour
     [SerializeField] private PlayerWeaponEquipController weaponEquipController;
     [SerializeField] private PlayerAnimationController animationController;
 
-    [Header("Runtime")]
-    [SerializeField] private bool waitingForAttackStateEnter;
-
     [Header("Debug UI")]
     [SerializeField] private TextMeshProUGUI currentWeaponNameText;
     [SerializeField] private TextMeshProUGUI currentComboStep;
     [SerializeField] private TextMeshProUGUI currentNextComboStep;
     
     private PlayerComboRuntimeState runtimeState = new PlayerComboRuntimeState();
-    
+    private bool waitingForAttackStateEnter;
+
     public bool IsAttacking => runtimeState.IsAttacking;
 
     private void Reset()
@@ -59,6 +57,11 @@ public class PlayerActionController : MonoBehaviour
     {
         UpdateComboFlow();
         UpdateDebugRuntimeState();
+    }
+
+    public bool TryGetCurrentAttackStepData(out GameComboStepData stepData)
+    {
+        return GetCurrentStepData(out stepData);
     }
 
     private void HandleAttackInput(GameAttackInputType inputType)

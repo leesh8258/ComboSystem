@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameWeaponSO
   weaponName: Sword
   weaponPrefab: {fileID: 3188897173614111652, guid: 34fadf504b995004c968b439b132c946, type: 3}
-  equipOffsetPosition: {x: 0, y: 0, z: 0}
+  equipOffsetPosition: {x: -0.4, y: 0.1, z: 0.05}
   equipOffsetRotation: {x: 0, y: 0, z: 0}
+  baseDamage: 10
   comboData:
     entryTransitions:
     - inputType: 1
@@ -27,6 +28,7 @@ MonoBehaviour:
       animationClip: {fileID: 7400000, guid: ec2099464d45eca478eb38664181ffec, type: 2}
       bufferOpenNormalizedTime: 0.1
       bufferCloseNormalizedTime: 0.5
+      damageMultiplier: 0.8
       transitions:
       - inputType: 2
         nextStepId: L2
@@ -34,6 +36,7 @@ MonoBehaviour:
       animationClip: {fileID: 7400000, guid: 177ac19c6a96edc41bdd24e0652518e7, type: 2}
       bufferOpenNormalizedTime: 0.1
       bufferCloseNormalizedTime: 0.5
+      damageMultiplier: 0.9
       transitions:
       - inputType: 1
         nextStepId: L3
@@ -41,11 +44,13 @@ MonoBehaviour:
       animationClip: {fileID: 7400000, guid: 22da0a64774213d4b882630e6a68395f, type: 2}
       bufferOpenNormalizedTime: 0.1
       bufferCloseNormalizedTime: 0.5
+      damageMultiplier: 1
       transitions: []
     - stepId: R1
       animationClip: {fileID: 7400000, guid: 932a23924401be2408bc67bd87b3857f, type: 2}
       bufferOpenNormalizedTime: 0.2
       bufferCloseNormalizedTime: 0.7
+      damageMultiplier: 1.2
       transitions:
       - inputType: 2
         nextStepId: R2
@@ -53,6 +58,7 @@ MonoBehaviour:
       animationClip: {fileID: 7400000, guid: 2a7f074d14e382e4fac7f7099a515530, type: 2}
       bufferOpenNormalizedTime: 0.2
       bufferCloseNormalizedTime: 0.7
+      damageMultiplier: 1.4
       transitions:
       - inputType: 2
         nextStepId: R3
@@ -60,4 +66,5 @@ MonoBehaviour:
       animationClip: {fileID: 7400000, guid: fdcf8527257ad71438c3631580687f15, type: 2}
       bufferOpenNormalizedTime: 0.2
       bufferCloseNormalizedTime: 0.7
+      damageMultiplier: 2
       transitions: []
