@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68d9a0894f9346f46a64a5af5e6f1766, type: 3}
-  m_Name: Sword
+  m_Name: Sword_Red
   m_EditorClassIdentifier: Assembly-CSharp::GameWeaponSO
-  weaponName: Sword
-  weaponPrefab: {fileID: 3188897173614111652, guid: 34fadf504b995004c968b439b132c946, type: 3}
-  equipOffsetPosition: {x: -0.4, y: 0.1, z: 0.05}
-  equipOffsetRotation: {x: 0, y: 0, z: 0}
+  weaponName: Sword_Red
+  weaponPrefab: {fileID: 7676615874565401376, guid: d7e67ff5daed3494fbe6d1904e928589, type: 3}
+  equipOffsetPosition: {x: 0.08, y: 0.09, z: 0.05}
+  equipOffsetRotation: {x: 0, y: 0, z: 80}
   baseDamage: 10
   comboData:
     entryTransitions:
@@ -30,7 +30,7 @@ MonoBehaviour:
       bufferCloseNormalizedTime: 0.5
       damageMultiplier: 0.8
       transitions:
-      - inputType: 2
+      - inputType: 1
         nextStepId: L2
     - stepId: L2
       animationClip: {fileID: 7400000, guid: 177ac19c6a96edc41bdd24e0652518e7, type: 2}

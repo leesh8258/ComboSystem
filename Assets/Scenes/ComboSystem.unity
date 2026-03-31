@@ -846,6 +846,7 @@ MonoBehaviour:
   equipController: {fileID: 876859173}
   weaponSlots:
   - {fileID: 11400000, guid: 94003ea8fc619e84483b4e92b9bcbbb7, type: 2}
+  - {fileID: 11400000, guid: c879cce1dd64112499a178d1216c8653, type: 2}
 --- !u!114 &876859173
 MonoBehaviour:
   m_ObjectHideFlags: 0
