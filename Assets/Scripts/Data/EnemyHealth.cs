@@ -10,13 +10,14 @@ public class EnemyHealth : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Animator animator;
-
+    [SerializeField] private Collider enemyCollider;
     [SerializeField] private float currentHealth;
     private bool isDead;
 
     private void Reset()
     {
         animator = GetComponentInChildren<Animator>();
+        enemyCollider = GetComponent<Collider>();
     }
 
     private void Awake()
@@ -38,7 +39,6 @@ public class EnemyHealth : MonoBehaviour
             return;
         }
 
-        Debug.Log("??");
         PlayHitReaction();
     }
 
@@ -51,6 +51,11 @@ public class EnemyHealth : MonoBehaviour
     private void HandleDeath()
     {
         isDead = true;
+
+        if (enemyCollider != null)
+        {
+            enemyCollider.enabled = false;
+        }
 
         if (animator != null)
         {

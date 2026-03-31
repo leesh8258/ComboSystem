@@ -1,5 +1,4 @@
 using UnityEngine;
-using TMPro;
 
 public class PlayerAnimationController : MonoBehaviour
 {
@@ -10,9 +9,6 @@ public class PlayerAnimationController : MonoBehaviour
     [Header("Attack State")]
     [SerializeField] private string attackStateName = "Attack";
     [SerializeField] private AnimationClip attackPlaceholderClip;
-
-    [Header("Debug UI")]
-    [SerializeField] private TextMeshProUGUI currentAttackClipNameText;
 
     private AnimatorOverrideController runtimeOverrideController;
     private int attackStateHash;
@@ -46,11 +42,6 @@ public class PlayerAnimationController : MonoBehaviour
             weaponEquipController.OnWeaponEquipped -= HandleWeaponEquipped;
             weaponEquipController.OnWeaponCleared -= HandleWeaponCleared;
         }
-    }
-
-    private void LateUpdate()
-    {
-        UpdateDebugRuntimeState();
     }
 
     public void PlayAttackClip(AnimationClip clip)
@@ -153,12 +144,4 @@ public class PlayerAnimationController : MonoBehaviour
         runtimeOverrideController[attackPlaceholderClip] = attackPlaceholderClip;
         currentAttackClip = null;
     }
-
-    #region Debug
-    private void UpdateDebugRuntimeState()
-    {
-        string currentClipName = currentAttackClip != null ? currentAttackClip.name : string.Empty;
-        currentAttackClipNameText.text = $"Current Animation clip: {currentClipName}";
-    }
-    #endregion
 }

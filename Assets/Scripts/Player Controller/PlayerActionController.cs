@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 public class PlayerActionController : MonoBehaviour
@@ -8,15 +7,12 @@ public class PlayerActionController : MonoBehaviour
     [SerializeField] private PlayerWeaponEquipController weaponEquipController;
     [SerializeField] private PlayerAnimationController animationController;
 
-    [Header("Debug UI")]
-    [SerializeField] private TextMeshProUGUI currentWeaponNameText;
-    [SerializeField] private TextMeshProUGUI currentComboStep;
-    [SerializeField] private TextMeshProUGUI currentNextComboStep;
-    
     private PlayerComboRuntimeState runtimeState = new PlayerComboRuntimeState();
     private bool waitingForAttackStateEnter;
 
     public bool IsAttacking => runtimeState.IsAttacking;
+    public string CurrentComboStepId => runtimeState.CurrentStepId;
+    public string BufferedNextComboStepId => runtimeState.BufferedNextStepId;
 
     private void Reset()
     {
@@ -56,7 +52,6 @@ public class PlayerActionController : MonoBehaviour
     private void Update()
     {
         UpdateComboFlow();
-        UpdateDebugRuntimeState();
     }
 
     public bool TryGetCurrentAttackStepData(out GameComboStepData stepData)
@@ -225,13 +220,4 @@ public class PlayerActionController : MonoBehaviour
 
         return comboData.TryGetStep(runtimeState.CurrentStepId, out stepData);
     }
-
-    #region Debug
-    private void UpdateDebugRuntimeState()
-    {
-        currentComboStep.text = $"Current Combo: {runtimeState.CurrentStepId}";
-        currentNextComboStep.text = $"Next Combo: {runtimeState.BufferedNextStepId}";
-        currentWeaponNameText.text = $"Weapon: {(weaponEquipController.HasWeapon ? weaponEquipController.CurrentWeapon.WeaponName : "None")}";
-    }
-    #endregion
 }
