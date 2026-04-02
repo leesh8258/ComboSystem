@@ -10,10 +10,12 @@ public class WeaponHitbox : MonoBehaviour
     [Header("Runtime State")]
     [SerializeField] private bool isHitboxActive;
     [SerializeField] private int currentAttackSequenceId = -1;
-    
+
     private readonly HashSet<EnemyHealth> hitTargets = new HashSet<EnemyHealth>();
 
     private PlayerDamageController damageController;
+
+    public bool IsHitboxActive => isHitboxActive;
 
     private void Reset()
     {

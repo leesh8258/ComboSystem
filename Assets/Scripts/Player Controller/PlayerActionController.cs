@@ -13,6 +13,8 @@ public class PlayerActionController : MonoBehaviour
     public bool IsAttacking => runtimeState.IsAttacking;
     public string CurrentComboStepId => runtimeState.CurrentStepId;
     public string BufferedNextComboStepId => runtimeState.BufferedNextStepId;
+    public bool HasBufferedStep => runtimeState.HasBufferedStep;
+    public bool IsWaitingForAttackStateEnter => waitingForAttackStateEnter;
 
     private void Reset()
     {

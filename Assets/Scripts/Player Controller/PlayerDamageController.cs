@@ -9,6 +9,9 @@ public class PlayerDamageController : MonoBehaviour
     private WeaponHitbox activeHitbox;
     private int currentAttackSequenceId;
 
+    public int CurrentAttackSequenceId => currentAttackSequenceId;
+    public bool IsHitboxActive => activeHitbox != null && activeHitbox.IsHitboxActive;
+
     private void Reset()
     {
         weaponEquipController = GetComponent<PlayerWeaponEquipController>();
