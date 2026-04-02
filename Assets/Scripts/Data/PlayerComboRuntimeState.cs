@@ -16,10 +16,7 @@ public class PlayerComboRuntimeState
 
     public void BeginStep(GameComboStepData stepData)
     {
-        if (stepData == null)
-        {
-            return;
-        }
+        if (stepData == null) return;
 
         isAttacking = true;
         currentStepId = stepData.StepId;
@@ -28,10 +25,7 @@ public class PlayerComboRuntimeState
 
     public void SetBufferedNextStep(string nextStepId)
     {
-        if (string.IsNullOrEmpty(nextStepId))
-        {
-            return;
-        }
+        if (string.IsNullOrEmpty(nextStepId)) return;
 
         hasBufferedStep = true;
         bufferedNextStepId = nextStepId;

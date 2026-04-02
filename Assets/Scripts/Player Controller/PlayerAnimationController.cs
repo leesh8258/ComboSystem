@@ -54,10 +54,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     public bool IsPlayingAttackState()
     {
-        if (animator == null)
-        {
-            return false;
-        }
+        if (animator == null) return false;
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         return stateInfo.shortNameHash == attackStateHash;
@@ -65,10 +62,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     public float GetAttackNormalizedTime()
     {
-        if (!IsPlayingAttackState())
-        {
-            return 0f;
-        }
+        if (!IsPlayingAttackState()) return 0f;
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         return stateInfo.normalizedTime;
@@ -76,10 +70,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     public bool IsAttackFinished()
     {
-        if (!IsPlayingAttackState())
-        {
-            return false;
-        }
+        if (!IsPlayingAttackState()) return false;
 
         return GetAttackNormalizedTime() >= 1f;
     }
@@ -101,20 +92,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     private bool CanPlayAttackClip(AnimationClip clip)
     {
-        if (animator == null)
-        {
-            return false;
-        }
-
-        if (attackPlaceholderClip == null)
-        {
-            return false;
-        }
-
-        if (clip == null)
-        {
-            return false;
-        }
+        if (animator == null || attackPlaceholderClip == null || clip == null) return false;
 
         CreateRuntimeOverrideController();
         return runtimeOverrideController != null;

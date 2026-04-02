@@ -49,20 +49,7 @@ public class PlayerWeaponEquipController : MonoBehaviour
 
     private bool CanEquipWeapon(GameWeaponSO weapon)
     {
-        if (weapon == null)
-        {
-            return false;
-        }
-
-        if (equipSocket == null)
-        {
-            return false;
-        }
-
-        if (weapon.WeaponPrefab == null)
-        {
-            return false;
-        }
+        if (weapon == null || equipSocket == null || weapon.WeaponPrefab == null) return false;
 
         return true;
     }

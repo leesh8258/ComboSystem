@@ -63,10 +63,7 @@ public class PlayerActionController : MonoBehaviour
 
     private void HandleAttackInput(GameAttackInputType inputType)
     {
-        if (inputType == GameAttackInputType.None)
-        {
-            return;
-        }
+        if (inputType == GameAttackInputType.None) return;
 
         if (!runtimeState.IsAttacking)
         {

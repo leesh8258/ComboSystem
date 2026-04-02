@@ -59,10 +59,7 @@ public class PlayerDamageController : MonoBehaviour
 
     public float GetCurrentDamage()
     {
-        if (weaponEquipController == null || !weaponEquipController.HasWeapon)
-        {
-            return 0f;
-        }
+        if (weaponEquipController == null || !weaponEquipController.HasWeapon) return 0f;
 
         float baseDamage = weaponEquipController.CurrentWeapon.BaseDamage;
         float multiplier = 1f;

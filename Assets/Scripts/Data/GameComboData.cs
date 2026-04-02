@@ -35,15 +35,8 @@ public class GameComboData
     {
         stepData = null;
 
-        if (string.IsNullOrEmpty(stepId))
-        {
-            return false;
-        }
-
-        if (steps == null || steps.Length == 0)
-        {
-            return false;
-        }
+        if (string.IsNullOrEmpty(stepId)) return false;
+        if (steps == null || steps.Length == 0) return false;
 
         for (int i = 0; i < steps.Length; i++)
         {

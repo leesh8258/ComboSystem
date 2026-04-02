@@ -27,10 +27,7 @@ public class GameComboStepData
     {
         nextStepId = string.Empty;
 
-        if (transitions == null || transitions.Length == 0)
-        {
-            return false;
-        }
+        if (transitions == null || transitions.Length == 0) return false;
 
         for (int i = 0; i < transitions.Length; i++)
         {
