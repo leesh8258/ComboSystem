@@ -4,6 +4,8 @@
 
 - 무기 별 Animation 행동 프리셋 및 행동별 데미지 배율 기능을 구현한 개인 프로젝트 입니다
 
+- 무료 에셋만 사용한 점을 밝힙니다
+
 ## 1. 기능 소개
 - 소개
     - "**무기별 콤보 프리셋을 만들어보자**" 로 시작한 토이 프로젝트 입니다
@@ -126,3 +128,9 @@ private void CreateRuntimeOverrideController()
 - 결과
   - 공격 타이밍 외에는 데미지가 들어가지 않게 구현
   - 한 번의 공격에서 같은 적이 여러 번 피격되는 문제를 방지
+
+## 5. 사용 에셋
+- Mixamo (YBot, Maria W/Prop J J Ong) : https://www.mixamo.com/#/
+- RPG_Animations_Pack_FREE: https://assetstore.unity.com/packages/3d/animations/rpg-animations-pack-free-288783
+- Low Poly Swords - RPG Weapons: https://assetstore.unity.com/packages/3d/props/weapons/free-low-poly-swords-rpg-weapons-198166
+- Prototype Map: https://assetstore.unity.com/packages/3d/environments/prototype-map-315588
